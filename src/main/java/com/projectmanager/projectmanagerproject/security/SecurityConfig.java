@@ -12,6 +12,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.projectmanager.projectmanagerproject.appUser.AppUserServiceImpl;
 import com.projectmanager.projectmanagerproject.filter.JwtRequestFilter;
@@ -20,7 +22,7 @@ import lombok.RequiredArgsConstructor;
 
 @EnableWebSecurity
 @RequiredArgsConstructor
-public class SecurityConfig {
+public class SecurityConfig implements WebMvcConfigurer {
 
     private final AppUserServiceImpl appUserServiceImpl;
     private final PasswordEncoder passwordEncoder;
@@ -47,10 +49,19 @@ public class SecurityConfig {
     //@Bean
     //public AuthenticationManager authenticationManager(authentication)
 
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**")
+            .allowCredentials(true)
+            .allowedHeaders("*")
+            .allowedOrigins("http://localhost:3000")
+            .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS");
+    }
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf().disable()
+                .cors().and().csrf().disable()
                 .authorizeRequests((authz) -> {
                     try {
                         authz
