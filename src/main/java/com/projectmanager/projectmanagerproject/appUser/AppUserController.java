@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.projectmanager.projectmanagerproject.dto.AuthenticationRequest;
 import com.projectmanager.projectmanagerproject.dto.AuthenticationResponse;
+import com.projectmanager.projectmanagerproject.dto.RegisterRequest;
+import com.projectmanager.projectmanagerproject.dto.RegisterResponse;
 import com.projectmanager.projectmanagerproject.util.JwtUtil;
 
 import lombok.RequiredArgsConstructor;
@@ -32,10 +34,21 @@ public class AppUserController {
         return "hi";
     }
 
-    @PostMapping("/register")
+    /*@PostMapping("/register")
     public AppUser registerUser(@RequestBody AppUser appUser) {
         return appUserServiceImpl.saveUser(appUser);
-    } 
+    }*/
+
+    @PostMapping("/register")
+    public ResponseEntity<RegisterResponse> registerUser(@RequestBody RegisterRequest registerRequest) {
+        AppUser appUser = new AppUser(null, registerRequest.getEmail(), registerRequest.getPassword(),
+                registerRequest.getRoles());
+        if (appUserServiceImpl.saveUser(appUser) == null) {
+            return ResponseEntity.badRequest().body(new RegisterResponse());
+        }
+        RegisterResponse registerResponse = new RegisterResponse(true);
+        return ResponseEntity.ok().body(registerResponse);
+    }
 
     @PostMapping("/login")
     public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest)
@@ -46,7 +59,6 @@ public class AppUserController {
     } catch (BadCredentialsException exception) {
         throw new Exception("incorrect username or password");
     }
-        
         final UserDetails userDetails = appUserServiceImpl.loadUserByUsername(authenticationRequest.getEmail());
         final String jwt = jwtUtil.createToken(userDetails.getUsername(), userDetails.getPassword());
         return ResponseEntity.ok(new AuthenticationResponse(jwt));
