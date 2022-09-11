@@ -67,6 +67,7 @@ public class SecurityConfig implements WebMvcConfigurer {
                         authz
                             .antMatchers("/api/login").permitAll()
                             .antMatchers("/api/register").permitAll()
+                            .antMatchers("/api/testlogin").permitAll()
                             .anyRequest().authenticated()
                             .and().sessionManagement()
                                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);

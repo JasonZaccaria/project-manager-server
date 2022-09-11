@@ -8,12 +8,14 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.projectmanager.projectmanagerproject.dto.AuthenticationRequest;
 import com.projectmanager.projectmanagerproject.dto.AuthenticationResponse;
+import com.projectmanager.projectmanagerproject.dto.LoginResponse;
 import com.projectmanager.projectmanagerproject.dto.RegisterRequest;
 import com.projectmanager.projectmanagerproject.dto.RegisterResponse;
 import com.projectmanager.projectmanagerproject.util.JwtUtil;
@@ -62,5 +64,20 @@ public class AppUserController {
         final UserDetails userDetails = appUserServiceImpl.loadUserByUsername(authenticationRequest.getEmail());
         final String jwt = jwtUtil.createToken(userDetails.getUsername(), userDetails.getPassword());
         return ResponseEntity.ok(new AuthenticationResponse(jwt));
+    }
+
+    @GetMapping("/testlogin")
+    public ResponseEntity<LoginResponse> testLogin(@RequestHeader("Authorization") String token) {
+        String jwt = null;
+        if (token == null) {
+            return ResponseEntity.badRequest().body(new LoginResponse(false));
+        }
+        jwt = token;
+        DecodedJWT decodedJWT = jwtUtil.verifyToken(jwt);
+        if (decodedJWT != null) {
+            return ResponseEntity.ok().body(new LoginResponse(true));
+        }
+        return ResponseEntity.ok().body(new LoginResponse(false));
+
     }
 }
