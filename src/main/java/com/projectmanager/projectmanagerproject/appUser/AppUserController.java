@@ -69,15 +69,16 @@ public class AppUserController {
     @GetMapping("/testlogin")
     public ResponseEntity<LoginResponse> testLogin(@RequestHeader("Authorization") String token) {
         String jwt = null;
-        if (token == null) {
-            return ResponseEntity.badRequest().body(new LoginResponse(false));
+        if (token == null || !token.startsWith("Bearer ")) {
+            return ResponseEntity.ok().body(new LoginResponse(false)); //ResponseEntity.badRequest().body(new LoginResponse(false));
         }
-        jwt = token;
+        jwt = new String(token.substring(7));
+        //jwt = token.substring(7);
         DecodedJWT decodedJWT = jwtUtil.verifyToken(jwt);
         if (decodedJWT != null) {
             return ResponseEntity.ok().body(new LoginResponse(true));
         }
         return ResponseEntity.ok().body(new LoginResponse(false));
-
+        
     }
 }

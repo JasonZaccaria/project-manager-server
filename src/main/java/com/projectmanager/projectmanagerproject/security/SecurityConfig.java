@@ -68,6 +68,7 @@ public class SecurityConfig implements WebMvcConfigurer {
                             .antMatchers("/api/login").permitAll()
                             .antMatchers("/api/register").permitAll()
                             .antMatchers("/api/testlogin").permitAll()
+                            //.antMatchers("/api/projects").authenticated()
                             .anyRequest().authenticated()
                             .and().sessionManagement()
                                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
