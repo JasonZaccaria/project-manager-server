@@ -1,4 +1,6 @@
-package com.projectmanager.projectmanagerproject.project;
+package com.projectmanager.projectmanagerproject.notes;
+
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,21 +11,17 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-//Remember I need to make most of these attributes optional
-
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProjectData {
+public class Notes {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    private Long projectId;
     private String projectName;
-    private String notes; //will be straight up text that users submit via form and is taken and stored need char limit
-    private String goals;
-    private String files; //will be file locations
-
-
-    
+    private String noteName;
+    private String note;
+    private Date Date;
 }
