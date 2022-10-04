@@ -28,6 +28,11 @@ public class DeadlineServiceImpl implements DeadlineService {
     }
 
     @Override
+    public List<Deadlines> getDeadlinesWithOwner(String owner) {
+        return deadlineRepo.findAllByOwner(owner);
+    }
+
+    @Override
     public List<Deadlines> getAllDeadlines() {
         return deadlineRepo.findAll();
     }

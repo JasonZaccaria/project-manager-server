@@ -28,6 +28,11 @@ public class FilesServiceImpl implements FilesService {
     }
 
     @Override
+    public List<Files> getFilesWithOwner(String owner) {
+        return filesRepo.findAllByOwner(owner);
+    }
+
+    @Override
     public Files saveFile(Files file) {
         return filesRepo.save(file);
     }

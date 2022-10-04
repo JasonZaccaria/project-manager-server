@@ -9,5 +9,7 @@ public interface FilesService {
 
     List<Files> getFilesWithName(String projectName);
 
+    List<Files> getFilesWithOwner(String owner);
+
     Files saveFile(Files file);
 }

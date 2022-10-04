@@ -10,6 +10,8 @@ public interface DeadlineService {
 
     List<Deadlines> getDeadlinesWithName(String projectName);
 
+    List<Deadlines> getDeadlinesWithOwner(String owner);
+
     List<Deadlines> getAllDeadlines();
     
 }

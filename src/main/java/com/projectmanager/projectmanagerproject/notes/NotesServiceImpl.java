@@ -28,6 +28,11 @@ public class NotesServiceImpl implements NotesService {
     }
 
     @Override
+    public List<Notes> getAllWithOwner(String owner) {
+        return notesRepo.findAllByOwner(owner);
+    }
+
+    @Override
     public Notes saveNotes(Notes notes) {
         return notesRepo.save(notes);
     }

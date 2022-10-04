@@ -20,6 +20,7 @@ public class Notes {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private Long projectId;
+    private String owner;
     private String projectName;
     private String noteName;
     private String note;

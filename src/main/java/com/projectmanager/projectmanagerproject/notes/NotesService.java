@@ -9,5 +9,7 @@ public interface NotesService {
 
     List<Notes> getNotesWithName(String projectName);
 
+    List<Notes> getAllWithOwner(String owner);
+
     Notes saveNotes(Notes notes);
 }

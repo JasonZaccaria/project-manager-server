@@ -10,5 +10,7 @@ public interface NotesRepo extends JpaRepository<Notes, Long> {
 
     List<Notes> findAllByProjectName(String projectName);
 
+    List<Notes> findAllByOwner(String owner);
+
     Notes findById(long id);
 }

@@ -20,6 +20,7 @@ public class Files {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private Long projectId;
+    private String owner;
     private String projectName;
     private String fileName;
     private String fileLocation;

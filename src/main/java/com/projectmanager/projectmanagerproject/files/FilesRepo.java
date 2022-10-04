@@ -11,6 +11,8 @@ public interface FilesRepo extends JpaRepository<Files, Long> {
 
     List<Files> findAllByProjectName(String projectName);
 
+    List<Files> findAllByOwner(String owner);
+
     Files findById(long id);
 
 }

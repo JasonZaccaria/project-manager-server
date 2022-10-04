@@ -19,7 +19,6 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public Project getProject(long id) {
-        // TODO Auto-generated method stub
         return projectRepo.findById(id);
     }
 
