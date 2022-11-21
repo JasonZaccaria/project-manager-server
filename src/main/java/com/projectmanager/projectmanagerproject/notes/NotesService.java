@@ -1,6 +1,7 @@
 package com.projectmanager.projectmanagerproject.notes;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface NotesService {
     List<Notes> getAllNotes();
@@ -12,4 +13,8 @@ public interface NotesService {
     List<Notes> getAllWithOwner(String owner);
 
     Notes saveNotes(Notes notes);
+
+    Optional<Notes> getNoteWithId(Long notesId);
+
+    boolean deleteNote(Long notesId);
 }

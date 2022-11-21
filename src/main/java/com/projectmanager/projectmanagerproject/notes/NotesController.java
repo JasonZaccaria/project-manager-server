@@ -33,4 +33,20 @@ public class NotesController {
             return ResponseEntity.badRequest().build();
         }
     }
+
+    @PostMapping("/delete")
+    public ResponseEntity<?> deleteNote(@RequestHeader("Authorization") String token, @RequestBody Long noteId) {
+        try {
+            String jwt = token.substring(7);
+            DecodedJWT decodedJWT = jwtUtil.verifyToken(jwt);
+            String owner = jwtUtil.getUsernameFromToken(decodedJWT);
+            //boolean test = notesServiceImpl.deleteNote(noteId);
+            //return ResponseEntity.ok().body(true);
+            //notesServiceImpl.getNotesWithId(noteId);
+            return ResponseEntity.ok().body(notesServiceImpl.deleteNote(noteId));
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseEntity.badRequest().build();
+        }
+    }
 }
