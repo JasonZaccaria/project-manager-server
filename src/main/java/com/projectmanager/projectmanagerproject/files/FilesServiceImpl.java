@@ -1,6 +1,7 @@
 package com.projectmanager.projectmanagerproject.files;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -35,6 +36,18 @@ public class FilesServiceImpl implements FilesService {
     @Override
     public Files saveFile(Files file) {
         return filesRepo.save(file);
+    }
+
+    @Override
+    public boolean deleteFile(Long fileId) {
+        try {
+            Optional<Files> note = filesRepo.findById(fileId);
+            filesRepo.delete(note.get());
+            return true;
+        } catch (IllegalArgumentException illegalArgumentException) {
+            illegalArgumentException.printStackTrace();
+            return false;
+        }
     }
     
 }

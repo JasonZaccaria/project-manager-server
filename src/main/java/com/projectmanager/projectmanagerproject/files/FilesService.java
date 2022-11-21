@@ -12,4 +12,6 @@ public interface FilesService {
     List<Files> getFilesWithOwner(String owner);
 
     Files saveFile(Files file);
+
+    boolean deleteFile(Long fileId);
 }

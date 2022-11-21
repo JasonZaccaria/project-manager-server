@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -42,6 +43,19 @@ public class FilesController {
                 return ResponseEntity.badRequest().build();
             }           
         } catch (Exception exception) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @PostMapping("/delete")
+    public ResponseEntity<?> deleteNote(@RequestHeader("Authorization") String token, @RequestBody Long id) {
+        try {
+            String jwt = token.substring(7);
+            DecodedJWT decodedJWT = jwtUtil.verifyToken(jwt);
+            String owner = jwtUtil.getUsernameFromToken(decodedJWT);
+            return ResponseEntity.ok().body(filesServiceImpl.deleteFile(id));
+        } catch (Exception exception) {
+            exception.printStackTrace();
             return ResponseEntity.badRequest().build();
         }
     }
