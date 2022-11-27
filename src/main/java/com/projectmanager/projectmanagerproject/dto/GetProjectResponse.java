@@ -11,10 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class GetProjectResponse {
-    /*private Long id;
-    private String projectName;
-    private Date creationDate;
-    private String owner;*/
+
     private List<Project> projects;
     
 }

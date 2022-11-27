@@ -64,9 +64,6 @@ public class ProjectController {
     @PostMapping("/viewproject")
     public ResponseEntity<?> viewProject(@RequestHeader("Authorization") String token, @RequestBody ProjectDataRequestDto projectDataRequestDto) {
         try {
-           /*String jwt = token.substring(7);
-           DecodedJWT decodedJWT = jwtUtil.verifyToken(jwt);
-           String username = jwtUtil.getUsernameFromToken(decodedJWT);*/
             List<Notes> projectNotes = notesServiceImpl.getNotesWithId(projectDataRequestDto.getProjectId());
             List<Deadlines> projectDeadlines = deadlineServiceImpl.getDeadlinesWithId(projectDataRequestDto.getProjectId());
             List<Files> projectFiles = filesServiceImpl.getFilesWithId(projectDataRequestDto.getProjectId());
@@ -77,6 +74,3 @@ public class ProjectController {
     }
     
 }
-///Ok so basically i need to send a requet which then gets all the notes, deadliesn, and files assocaites
-//with this specific project and then displays taht all abck to the user. So i need to make three rquests and
-//then creat a response object back

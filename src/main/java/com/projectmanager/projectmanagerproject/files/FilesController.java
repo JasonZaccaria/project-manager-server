@@ -27,7 +27,7 @@ public class FilesController {
     private final JwtUtil jwtUtil;
 
     @PostMapping("/create")
-    public ResponseEntity<?> createFile(@RequestParam("file") MultipartFile file, @RequestHeader("Authorization") String token, /*@RequestBody CreateFileReqDto createFileReqDto*/ @RequestParam("id") Long id, @RequestParam("project") String project, @RequestParam("date") String date) {
+    public ResponseEntity<?> createFile(@RequestParam("file") MultipartFile file, @RequestHeader("Authorization") String token, @RequestParam("id") Long id, @RequestParam("project") String project, @RequestParam("date") String date) {
         try {
             String jwt = token.substring(7);
             DecodedJWT decodedJWT = jwtUtil.verifyToken(jwt);

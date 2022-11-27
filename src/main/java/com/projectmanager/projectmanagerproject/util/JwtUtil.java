@@ -24,7 +24,6 @@ public class JwtUtil {
             Algorithm algorithm = Algorithm.HMAC256("secret");
             String token = JWT.create()
                     .withIssuer("auth0")
-                    //.withClaim("id", id)
                     .withClaim("email", email)
                     .withClaim("password", password)
                     .withExpiresAt(new Date(System.currentTimeMillis() + 1000 * 60 * 15))
@@ -43,7 +42,6 @@ public class JwtUtil {
                     .build();
             DecodedJWT jwt = verifier.verify(token);
             return jwt;
-            //return jwt.getHeader(); //we can change this out for what data we need back. OR just return decodedjwt!!!
 
         } catch (JWTVerificationException exception) {
             return null;
@@ -57,11 +55,6 @@ public class JwtUtil {
     public String getUsernameFromToken(DecodedJWT jwt) {
         return jwt.getClaim("email").asString();
     }
-
-    //i need another method to trya nd get the uername with just a string of jwt isntead of passing in decoded
-    //i may have to just validate the user first and then move foward. Although idk how much
-    //a difference in logic that will be. All we really need to do is verify them and then add
-    //that specific user to our usercontext so our application knows who that is for further requests
     
     public Map<String, Claim> getClaims(DecodedJWT jwt) {
         return jwt.getClaims();

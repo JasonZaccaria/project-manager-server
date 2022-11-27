@@ -1,6 +1,5 @@
 package com.projectmanager.projectmanagerproject.deadlines;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,11 +24,9 @@ public class DeadlineController {
     @PostMapping("/create")
     public ResponseEntity<?> createDeadline(@RequestHeader("Authorization") String token, @RequestBody DeadlineReqDto deadlineReqDto) {
         try {
-            //changes start here
             String jwt = token.substring(7);
             DecodedJWT decodedJWT = jwtUtil.verifyToken(jwt);
             String owner = jwtUtil.getUsernameFromToken(decodedJWT);
-            //changes end here
             Deadlines deadline = new Deadlines(null, deadlineReqDto.getProjectId(), owner, deadlineReqDto.getProjectName(),
                     deadlineReqDto.getDeadlineNote(), deadlineReqDto.getDeadlineDate());
             deadlineServiceImpl.saveDeadline(deadline);

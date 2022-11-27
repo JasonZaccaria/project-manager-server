@@ -36,11 +36,6 @@ public class AppUserController {
         return "hi";
     }
 
-    /*@PostMapping("/register")
-    public AppUser registerUser(@RequestBody AppUser appUser) {
-        return appUserServiceImpl.saveUser(appUser);
-    }*/
-
     @PostMapping("/register")
     public ResponseEntity<RegisterResponse> registerUser(@RequestBody RegisterRequest registerRequest) {
         AppUser appUser = new AppUser(null, registerRequest.getEmail(), registerRequest.getPassword(),
@@ -70,10 +65,9 @@ public class AppUserController {
     public ResponseEntity<LoginResponse> testLogin(@RequestHeader("Authorization") String token) {
         String jwt = null;
         if (token == null || !token.startsWith("Bearer ")) {
-            return ResponseEntity.ok().body(new LoginResponse(false)); //ResponseEntity.badRequest().body(new LoginResponse(false));
+            return ResponseEntity.ok().body(new LoginResponse(false));
         }
         jwt = new String(token.substring(7));
-        //jwt = token.substring(7);
         DecodedJWT decodedJWT = jwtUtil.verifyToken(jwt);
         if (decodedJWT != null) {
             return ResponseEntity.ok().body(new LoginResponse(true));

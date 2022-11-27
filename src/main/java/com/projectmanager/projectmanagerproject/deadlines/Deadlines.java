@@ -20,7 +20,7 @@ public class Deadlines {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private Long projectId;
-    private String owner; //testing
+    private String owner; 
     private String projectName;
     private String deadlineNote;
     private Date deadlineDate;
